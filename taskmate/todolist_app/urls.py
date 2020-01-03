@@ -5,4 +5,10 @@ from todolist_app import views
 urlpatterns = [
     path('', views.todolist, name = "todolist"),
     # path('', todolist, name = "todolist")
+
+    path('about/', views.about, name = "about"),
+    # path('', about, name = "about")
+    
+    path('contact/', views.contact, name = "contact"),
+    # path('', contact, name = "contact")
 ]
