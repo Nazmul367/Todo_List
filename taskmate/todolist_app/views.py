@@ -67,6 +67,15 @@ def pending_task(request, task_id):
 
     return redirect('todolist')
 
+
+def home(request):
+    # return HttpResponse ("amr apumoni")
+    context = {
+        "home_text" : "Welcome to Taskmate Dashboard" 
+    }
+    return render(request, 'home.html', context)
+
+
 def about(request):
     # return HttpResponse ("amr apumoni")
     context = {
