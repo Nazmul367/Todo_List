@@ -7,6 +7,18 @@
 {% block content %}
   {% comment %} {{ all_tasks }} {% endcomment %}
   </br>
+
+  {% if messages %}
+    {% for message in messages  %}
+      <div class="alert alert-info alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endfor %}
+  {% endif %}
+  
   <form method="POST">
   {% csrf_token %}
     <div class="form-group">
@@ -28,7 +40,9 @@
     </thead>
     <tbody>
 
-  {% for obj in all_tasks  %}
+  {% if all_tasks %}
+
+    {% for obj in all_tasks  %}
     {% comment %} {{ obj.id }} | {{ obj.task }} | {{ obj.done }}
     </br> {% endcomment %}
       {% if obj.done %}
@@ -50,7 +64,9 @@
         </tr>
       {% endif %}
 
-  {% endfor %}
+    {% endfor %}
+
+  {% endif %}
 
       </tbody>
     </table>
