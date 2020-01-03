@@ -26,6 +26,42 @@ def todolist(request):
         all_tasks = TaskList.objects.all
         return render(request, 'todolist.html', { 'all_tasks' : all_tasks })
 
+# Url = todolist/delete/1 
+def delete_task(request, task_id):
+    task = TaskList.objects.get(pk=task_id)
+    task.delete()
+    return redirect('todolist')
+
+# Url = todolist/edit/1 
+def edit_task(request, task_id):
+    if request.method == "POST":
+        task = TaskList.objects.get(pk=task_id)
+        form = TaskForm(request.POST or None, instance = task)
+        if form.is_valid():
+            form.save()
+
+        messages.success(request, ("Task Edited Successfully !"))
+        return redirect('todolist')
+    else:
+        task_obj = TaskList.objects.get(pk=task_id)
+        return render(request, 'edit.html', { 'task_obj' : task_obj })
+
+# Url = todolist/complete/1 
+def complete_task(request, task_id):
+    task = TaskList.objects.get(pk=task_id)
+    task.done = True
+    task.save()
+
+    return redirect('todolist')
+
+# Url = todolist/complete/1 
+def pending_task(request, task_id):
+    task = TaskList.objects.get(pk=task_id)
+    task.done = False
+    task.save()
+
+    return redirect('todolist')
+
 def about(request):
     # return HttpResponse ("amr apumoni")
     context = {
